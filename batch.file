@@ -1,0 +1,114 @@
+/* definition of tables */
+drop table author
+create table author ( \
+    aid         integer not null, \
+    name        char(22), \
+    url         char(42) \
+    )
+
+insert into author values \
+    (  1,  'Toman, David',   'http://db.uwaterloo.ca/~david')
+insert into author values \
+    (  2,  'Chomicki, Jan',  'http://cs.monmouth.edu/~chomicki')
+insert into author values \
+    (  3,  'Saake, Gunter',  NULL )
+
+
+drop table wrote
+create table wrote ( \
+    author      integer not null, \
+    publication char(8) not null \
+    )
+
+insert into wrote values ( 1,'ChTo98')
+insert into wrote values ( 1,'ChTo98a')
+insert into wrote values ( 1,'Tom97')
+insert into wrote values ( 2,'ChTo98')
+insert into wrote values ( 2,'ChTo98a')
+insert into wrote values ( 2,'ChSa98')
+insert into wrote values ( 3,'ChSa98')
+
+
+drop table publication
+create table publication ( \
+    pubid       char(8) not null, \
+    title       char(70) \
+    )
+
+insert into publication values \
+    ( 'ChSa98',    'Logics for Databases and Information Systems')
+insert into publication values \
+    ( 'ChTo98',    'Temporal Logic in Information Systems')
+insert into publication values \
+    ( 'JLP-3-98',  'Journal of Logic Programming')
+insert into publication values \
+    ( 'ChTo98a',   'Datalog with Integer Periodicity Constraints')
+insert into publication values \
+    ( 'DOOD97',    \
+       'International Conference on Deductive and Object-Oriented Databases')
+insert into publication values \
+    ( 'Tom97',     'Point-Based Temporal Extension of Temporal SQL')
+insert into publication values \
+    ( 'Tom98',     'Point-Based Temporal Extension of Temporal SQL')
+
+select * from publication
+
+drop table book
+create table book ( \
+    pubid       char(8) not null, \
+    publisher   char(50), \
+    year        integer \
+    )
+
+insert into book values ('ChSa98', 'Kluwer Academic Publishers', 1998)
+
+
+drop table journal
+create table journal ( \
+    pubid       char(8) not null, \
+    volume      integer, \
+    no          integer, \
+    year        integer \
+    )
+
+insert into journal values ('JLP-3-98',44,3,1998)
+
+drop table proceedings
+create table proceedings ( \
+    pubid       char(8) not null, \
+    year        integer \
+    )
+
+insert into proceedings values ('DOOD97', 1997)
+
+
+drop table article
+create table article ( \
+    pubid       char(8) not null, \
+    crossref    char(8), \
+    startpage   integer, \
+    endpage     integer \
+    )
+
+insert into article values ('ChTo98',     'ChSa98',   31,  70 )
+insert into article values ('ChTo98a',    'JLP-3-98',263, 290 )
+insert into article values ('Tom97',      'DOOD97',  103, 121 )
+insert into article values ('Tom98',      'JLP-3-98',  10, 12 )
+
+grant select on author to public
+grant select on wrote to public
+grant select on publication to public
+grant select on journal to public
+grant select on book to public
+grant select on article to public
+grant select on proceedings to public
+
+select * from author
+select * from wrote
+select * from book
+select * from journal
+select * from proceedings
+select * from article
+
+commit work
+
